@@ -6,14 +6,16 @@ on:
   #    - "API/**"
   #  branches:
   #    - main
+  schedule:
+    - cron: "27 8-17 * * 1-5"
   workflow_dispatch: {}
 
 env:
-  OCTOPUS_URL: https://your.octopus.app
-  OCTOPUS_SERVICE_ACCOUNT: service account id
-  OCTOPUS_SPACE: Your space
-  DOCKER_HUB_REPOSITORY: Your docker hub repository
-  SBOM_PACKAGE: YourApp.SBOM
+  OCTOPUS_URL: https://demo.octopus.app
+  OCTOPUS_SERVICE_ACCOUNT: 4d50c8ac-1515-4351-96a7-4a82d55d55ff
+  OCTOPUS_SPACE: GitHub Universe 2025
+  DOCKER_HUB_REPOSITORY: octopussolutionsengineering/ghu-profile-sync
+  SBOM_PACKAGE: ghu-profile-sync.sbom
 
 jobs:
   configure:
@@ -120,7 +122,7 @@ jobs:
           exit-code: "1"
           ignore-unfixed: true
           vuln-type: "os,library"
-          severity: "MEDIUM,HIGH,CRITICAL"
+          severity: "HIGH,CRITICAL"
 
       - name: Push Docker images
         id: push-docker-images
