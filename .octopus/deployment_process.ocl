@@ -1,4 +1,5 @@
 process_template "verify-artifacts" {
+    is_disabled = true
     name = "Verify Artifacts"
     process_template_slug = "dsc-verify-build-artifacts-docker"
     version_mask = "1.X"
