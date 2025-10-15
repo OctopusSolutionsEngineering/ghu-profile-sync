@@ -1,0 +1,69 @@
+process_template "verify-artifacts" {
+    name = "Verify Artifacts"
+    process_template_slug = "dsc-verify-build-artifacts-docker"
+    version_mask = "1.X"
+
+    package_parameter "Template.SBOM.Artifact" {
+        feed = "octopus-server-built-in"
+        package_id = "ghu-profile-sync.sbom"
+    }
+
+    parameter "Template.Docker.Account" {
+        value = "AccountManagement.Accounts.Docker"
+    }
+
+    parameter "Template.Verify.WorkerPool" {
+        value = "WorkerPools-5336"
+    }
+
+    parameter "Template.Verify.ExecutionContainerFeed" {
+        value = "Feeds-7423"
+    }
+
+    parameter "Template.Git.AuthToken" {
+        value = "#{GitHub.Token}"
+    }
+}
+
+process_template "deploy-api" {
+    name = "Deploy API"
+    process_template_slug = "ph-kubernetes-deploy-yaml-demo-app"
+    version_mask = "PreRelease"
+
+    package_parameter "Template.Container" {
+        feed = "docker-hub"
+        package_id = "octopussolutionsengineering/ghu-profile-sync"
+    }
+
+    parameter "Template.Environment.Production" {
+        value = "Environments-5834"
+    }
+
+    parameter "Template.Cluster.Namespace" {
+        value = "#{AccountManagement.Cluster.Namespace}"
+    }
+
+    parameter "Template.Deployment.Name" {
+        value = "#{Octopus.Project.Slug}-deployment"
+    }
+
+    parameter "Template.Deployment.Replicas" {
+        value = "#{AccountManagement.Deployment.Replicas}"
+    }
+
+    parameter "Template.Service.Name" {
+        value = "#{Octopus.Project.Slug}-service"
+    }
+
+    parameter "Template.Tag" {
+        value = "account-registry"
+    }
+
+    parameter "Template.Application.Name" {
+        value = "#{Octopus.Project.Name}"
+    }
+
+    parameter "Template.WindowSize" {
+        value = "1"
+    }
+}

@@ -1,0 +1,10 @@
+connectivity_policy {
+    allow_deployments_to_no_targets = true
+}
+
+versioning_strategy {
+    donor_package {
+        package = "app-container"
+        step = "647bb515-151d-47a2-abf8-f11d3d638327-apply-deployment"
+    }
+}
